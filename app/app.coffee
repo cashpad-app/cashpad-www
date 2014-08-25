@@ -1,4 +1,4 @@
 angular
   .module 'geekywallet', []
   .controller 'MyCtrl', ($scope) ->
-    $scope.foo = 'bar'
+    $scope.foo = 'baz'

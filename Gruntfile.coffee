@@ -1,13 +1,16 @@
 module.exports = (grunt) ->
-  require('load-grunt-tasks')(grunt)
-  require('time-grunt')(grunt)
+  require('load-grunt-tasks') grunt
+  require('time-grunt') grunt
 
   grunt.loadNpmTasks 'grunt-contrib-jade'
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-bower-install'
 
   grunt.initConfig
-    clean: ['dist/*']
+    clean: [
+      'dist/*',
+      '.tmp'
+    ]
 
     copy:
       dist:
@@ -15,15 +18,20 @@ module.exports = (grunt) ->
           expand: true
           cwd: 'app'
           dest: 'dist/',
-          src: 'index.html'
+          src: ['index.html']
+        ,
+          expand: true
+          cwd: 'app'
+          dest: '.tmp/',
+          src: ['**/*.js']
         ]
 
     coffee:
       dist:
         files:
-          'app/coffeed.js': 'app/**/*.coffee'
+          '.tmp/coffeed.js': ['app/app.coffee', 'app/**/*.coffee']
       test:
-        files:
+        files: # TODO
           'test/spec/coffeed.js': 'test/spec/**/*.coffee'
 
     jshint:
@@ -45,8 +53,9 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          src: 'app/**/*.jade'
-          dest: 'dist'
+          cwd: 'app/'
+          src: '**/*.jade'
+          dest: 'dist/'
           ext: '.html'
         ]
 
@@ -58,10 +67,8 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: 'app'
-          dest: 'dist/style.css'
-          src: [
-            '**/*.scss'
-          ]
+          dest: '.tmp/'
+          src: '**/*.scss'
           ext: '.css'
         ]
 
@@ -74,7 +81,7 @@ module.exports = (grunt) ->
       html: ['dist/index.html'],
       css: [],
       options:
-        assetsDirs: ['app']
+        assetsDirs: ['.tmp']
 
     ngAnnotate:
       dist:
@@ -88,8 +95,8 @@ module.exports = (grunt) ->
     watch:
       dist:
         files: [
+          'app/index.html',
           'app/**/*.js',
-          '!app/coffeed.js',
           'app/**/*.coffee',
           'app/**/*.jade'
         ]
@@ -107,19 +114,19 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'bowerInstall',
-    'newer:jshint',
+    'newer:jshint:all',
     'test',
     'clean',
     'useminPrepare',
-    'copy:dist',
+    'copy',
     'sass',
     'jade',
     'coffee:dist',
     'concat',
     'ngAnnotate',
     'uglify',
+    'cssmin',
     'usemin'
   ]
 
   grunt.registerTask 'default', ['build']
-  grunt.registerTask 'watch', ['build', 'watch']

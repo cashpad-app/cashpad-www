@@ -11,11 +11,13 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:css style.css -->
+    <!-- build:css(.tmp) style.css -->
+    <link rel="stylesheet" type="text/css" href="simple/style.css">
     <!-- endbuild -->
   </head>
   <body ng-app="geekywallet">
     <div ng-controller="MyCtrl">{{foo}}</div>
+    <p lol></p>
 
     <!-- build:js vendor.js -->
     <!-- bower:js -->
@@ -23,8 +25,9 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js app.js -->
+    <!-- build:js(.tmp) app.js -->
     <script src="coffeed.js"></script>
+    <script src="simple/simple.js"></script>
     <!-- endbuild -->
   </body>
 </html>
