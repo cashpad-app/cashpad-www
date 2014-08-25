@@ -1,0 +1,23 @@
+{
+  "name": "geekywallet-www",
+  "version": "0.0.0",
+  "authors": [
+    "Giovanni Gonzaga <giovanni@buildo.io>"
+  ],
+  "description": "web client app for geekywallet",
+  "keywords": [],
+  "homepage": "https://github.com/buildo/geekywallet-www",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.23"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.23"
+  }
+}
