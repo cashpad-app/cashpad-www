@@ -5,8 +5,26 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
+    <!-- build:css vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css style.css -->
+    <!-- endbuild -->
   </head>
   <body ng-app="geekywallet">
-    <div ui-view></div>
+    <div ng-controller="MyCtrl">{{foo}}</div>
+
+    <!-- build:js vendor.js -->
+    <!-- bower:js -->
+    <script src="../bower_components/angular/angular.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js app.js -->
+    <script src="coffeed.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
