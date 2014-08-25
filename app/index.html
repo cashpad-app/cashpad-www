@@ -13,11 +13,13 @@
 
     <!-- build:css(.tmp) style.css -->
     <link rel="stylesheet" type="text/css" href="simple/style.css">
+    <link rel="stylesheet" type="text/css" href="graphs/pie/style.css">
     <!-- endbuild -->
   </head>
   <body ng-app="geekywallet">
-    <div ng-controller="MyCtrl">{{foo}}</div>
-    <p lol></p>
+    <div ng-controller="MyCtrl">
+      <p gw-pie></p>
+    </div>
 
     <!-- build:js vendor.js -->
     <!-- bower:js -->
@@ -29,10 +31,11 @@
     <!-- endbower -->
     <script src="../bower_components/geekywallet/dist/geekywallet.js"></script>
     <!-- endbuild -->
-
     <!-- build:js(.tmp) app.js -->
     <script src="coffeed.js"></script>
     <script src="simple/simple.js"></script>
+    <script src="graphs/pie/pie.js"></script>
+    <script src="data/data.js"></script>
     <!-- endbuild -->
   </body>
 </html>
