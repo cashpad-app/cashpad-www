@@ -99,6 +99,7 @@ module.exports = (grunt) ->
     watch:
       dist:
         files: [
+          'Gruntfile.coffee',
           'app/index.html',
           'app/**/*.js',
           'app/**/*.coffee',
