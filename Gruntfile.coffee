@@ -48,6 +48,10 @@ module.exports = (grunt) ->
         src: 'app/index.html'
         cwd:  '.'
         ignorePath: 'app/'
+        exclude: [
+          'bower_components/requirejs',
+          'bower_components/requirejs-plugins'
+        ]
 
     jade:
       dist:
