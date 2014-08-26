@@ -18,6 +18,8 @@
   </head>
   <body ng-app="geekywallet">
     <div ng-controller="MyCtrl">
+      <select ng-model="selection" ng-options="i for i in types">
+      </select>
       <p gw-pie></p>
     </div>
 

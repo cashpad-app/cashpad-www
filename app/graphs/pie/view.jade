@@ -1,8 +1,7 @@
 .graph(paths-pie="pie")
-  | {{pie}}
-  svg(ng-attr-width="300",
-    ng-attr-height="300", 
-    ng-attr-transform="translate(150, 150)")
+  svg(ng-if="!!viewport", ng-attr-width="{{viewport.width}}",
+    ng-attr-height="{{viewport.height}}", 
+    ng-attr-transform="translate({{viewport.width}}, {{viewport.height}})")
       path(ng-repeat="curve in curves", 
         ng-attr-d="{{curve._sector}}",
         stroke="white")
