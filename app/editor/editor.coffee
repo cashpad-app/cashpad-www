@@ -26,8 +26,10 @@ angular
         unless doc.type
           doc.create 'text'
         if doc.type && doc.type.name == 'text'
+          editor.setValue doc.getSnapshot(), 1
           doc.attach_ace editor, true
           editor.setReadOnly false
+          editor.focus()
 
     $scope.aceCfg =
       onLoad: $scope.aceLoaded
