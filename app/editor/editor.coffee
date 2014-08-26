@@ -1,11 +1,22 @@
 angular
   .module 'geekywallet.editor', [
+    'geekywallet.editor.compute',
+    'geekywallet.editor.line',
+    'geekywallet.editor.computedLines',
     'ui.ace',
     'geekywallet.wallet',
     'geekywallet.connection'
   ]
-  .controller 'EditorCtrl', ($scope, $connection) ->
+  .controller 'EditorCtrl', ($scope, $connection, $computedLines, $wallet, $http) ->
+	  $http
+      .get 'liechtenstein'
+      .then (data) ->
+        $computedLines.$set $wallet data.data
+    aceWasLoaded = false
     $scope.aceLoaded = (editor) ->
+      if aceWasLoaded
+        return
+      aceWasLoaded = true
       editor.setReadOnly true
       console.log 'ace loaded'
       doc = $connection.get 'users', 'seth'

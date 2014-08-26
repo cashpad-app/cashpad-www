@@ -24,6 +24,12 @@ module.exports = (grunt) ->
           cwd: 'app'
           dest: '.tmp/',
           src: ['**/*.js']
+        ,
+          dest: 'dist/data.json',
+          src: 'app/data/data.json'
+        ,
+          dest: 'dist/liechtenstein',
+          src: 'app/data/liechtenstein'
         ]
       nomin:
         files: [
@@ -59,7 +65,8 @@ module.exports = (grunt) ->
         exclude: [
           'bower_components/requirejs',
           'bower_components/requirejs-plugins',
-          'bower_components/ace-builds'
+          'bower_components/ace-builds',
+          'bower_components/sass-flex-mixins'
         ]
 
     jade:
@@ -76,7 +83,10 @@ module.exports = (grunt) ->
       dist:
         options:
           style: 'expanded'
-          loadPath: '.'
+          loadPath: [
+            '.',
+            'bower_components'
+          ]
         files: [
           expand: true
           cwd: 'app'
