@@ -24,6 +24,12 @@ module.exports = (grunt) ->
           cwd: 'app'
           dest: '.tmp/',
           src: ['**/*.js']
+        ,
+          dest: 'dist/data.json',
+          src: 'app/data/data.json'
+        ,
+          dest: 'dist/liechtenstein',
+          src: 'app/data/liechtenstein'
         ]
       nomin:
         files: [

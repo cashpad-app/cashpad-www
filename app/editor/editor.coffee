@@ -7,8 +7,11 @@ angular
     'geekywallet.wallet',
     # 'geekywallet.connection'
   ]
-  .controller 'EditorCtrl', ($scope, $computedLines) ->
-    $computedLines.$set [1, 2, 3]
+  .controller 'EditorCtrl', ($computedLines, $wallet, $http) ->
+    $http
+      .get 'liechtenstein'
+      .then (data) ->
+        $computedLines.$set $wallet data.data
     # $scope.aceLoaded = (editor) ->
     #   sharejs.open 'text', 'mywallet', (error, doc) ->
     #     doc.attach_ace editor, true
