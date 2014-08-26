@@ -1,6 +1,173 @@
+$white : #fff;
+$gray : #7e8287;
+$lgray : #d9dbdb;
+$black : #444;
+$dgray : #232c32;
 body, html, document, body > div {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.opensans {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+.roboto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+.headline {
+  padding-top: 120px;
+  height: 650px;
+  background-color: #ccc;
+  position: relative;
+
+  .logo {
+    margin-bottom: 10px;
+    height: 120px;
+  }
+
+  .tagline {
+    color: $white;
+    font-size: 24px;
+  }
+
+  .use-application {
+    margin-top: 200px;
+    height: 60px;
+    font-size: 18px;
+  }
+
+  .header-decoration {
+    position: absolute;
+    bottom: 0;
+    height: 15px;
+    width: 100%;
+    .decoration-item {
+      height: 15px;
+      width: 16.66%;
+      float: left;
+      &.green {
+        background-color: #c4ffdf;
+      }
+      &.red {
+        background-color: #edc9d5;
+      }
+      &.blue {
+        background-color: #c5ddff;
+      }
+      &.lblue {
+        background-color: #dfffff;
+      }
+      &.yellow {
+        background-color: #ffffca;
+      }
+      &.orange {
+        background-color: #ffdeb0;
+      }
+    }
+  }
+}
+
+.what {
+  height: 1000px;
+
+  .explanation {
+    width: 550px;
+    padding: 65px;
+    color: $gray;
+
+    .title {
+      text-transform: lowercase;
+      font-size: 38px;
+      margin-bottom: 10px;
+      color: $black;
+    }
+    .content {
+      line-height: 35px;
+      font-size: 17px;
+    }
+  }
+
+  .features {
+    width: 1040px;
+    margin: 0 auto;
+    margin-top: 170px;
+    .feature-item {
+      width: 24.9%;
+      .icon {
+        width: 125px;
+        height: 125px;
+      }
+      .title {
+        color: $black;
+        font-size: 26px;
+        margin-bottom: 10px;
+        text-transform: lowercase;
+      }
+      .content {
+        color: $gray;
+        font-size: 15px;
+      }
+    }
+    .border {
+      float: left;
+      height: 230px;
+      background-color: $lgray;
+      width: 1px;
+      padding-top: 30px;
+    }
+
+  }
+}
+
+.use-cases {
+  .header {
+    height: 270px;
+    .title {
+      color: $black;
+      font-size: 38px;
+      text-transform: lowercase;
+      margin-bottom: 10px;
+      line-height: 41px;
+    }
+    .subtitle {
+      color: $gray;
+      font-size: 17px;
+      line-height: 35px;
+    }
+  }
+  .use-case-item {
+    height: 430px;
+    .caption {
+      color: $black;
+      height: 160px;
+      width: 160px;
+      padding-top: 61px;
+      margin: 0 auto;
+      margin-top: 135px;
+      font-size: 24px;
+      line-height: 30px;
+      background-color: rgba(237, 201, 213, 0.9);
+      border-radius: 80px;
+    }
+    .image {
+      background-color: #ccc;
+      height: 100%;
+    }
+  }
+  .code-editor {
+    background-color: $dgray;
+    height: 100%;
+  }
+}
+
+.footer {
+  height: 20px;
+  width: 100%;
+  background-color: #ddd;
 }
