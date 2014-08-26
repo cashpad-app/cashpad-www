@@ -158,6 +158,20 @@ module.exports = (grunt) ->
           'cssmin:generated',
           'usemin'
         ]
+      bower:
+        files: [
+          'bower.json'
+        ]
+        tasks: [
+          'bowerInstall',
+          'useminPrepare',
+          'copy:dist',
+          'sass',
+          'concat:generated',
+          'copy:nomin',
+          'cssmin:generated',
+          'usemin'
+        ]
 
     karma:
       unit:
