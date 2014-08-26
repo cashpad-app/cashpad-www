@@ -1,16 +1,18 @@
 angular
   .module 'geekywallet', [
-    'ui.ace',
-    'geekywallet.wallet',
-    'geekywallet.connection'
+    'ui.router',
+    'geekywallet.landing',
+    'geekywallet.editor'
   ]
-  .controller 'MyCtrl', ($scope, $connection) ->
-    $scope.aceLoaded = (editor) ->
-      doc = $connection.get 'mywallet'
-      doc.whenReady ->
-        doc.attach_ace editor, true
-        editor.setReadOnly false
+  .config ($stateProvider, $urlRouterProvider) ->
+    # $urlRouterProvider.otherwise '/'
 
-    $scope.aceCfg =
-      onLoad: $scope.aceLoaded
-      readOnly: true
+    $stateProvider.state 'landing',
+      url: '/',
+      templateUrl: 'landing/landing.html',
+      controller: 'LandingCtrl'
+
+    $stateProvider.state 'editor',
+      url: '/editor',
+      templateUrl: 'editor/editor.html',
+      controller: 'EditorCtrl'

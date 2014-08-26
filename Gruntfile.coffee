@@ -112,7 +112,8 @@ module.exports = (grunt) ->
           'app/index.html',
           'app/**/*.js',
           'app/**/*.coffee',
-          'app/**/*.jade'
+          'app/**/*.jade',
+          'lib/**/*.js',
         ]
         tasks: ['build']
 

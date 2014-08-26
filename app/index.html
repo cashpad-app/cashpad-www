@@ -13,12 +13,11 @@
 
     <!-- build:css(.tmp) style.css -->
     <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="editor/editor.css">
     <!-- endbuild -->
   </head>
   <body ng-app="geekywallet">
-    <div ng-controller="MyCtrl" style="width: 100%; height: 100%;">
-      <div ui-ace="aceCfg" style="width: 100%; height: 100%;"></div>
-    </div>
+    <div ui-view></div>
 
     <!-- build:js vendor.js -->
     <script src="../lib/share.js"></script>
@@ -33,6 +32,7 @@
     <script src="../bower_components/underscore/underscore.js"></script>
     <script src="../bower_components/angular-reconnecting-websocket/angular-reconnecting-websocket.js"></script>
     <script src="../bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script src="../bower_components/ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
