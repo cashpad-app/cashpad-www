@@ -25,6 +25,14 @@ module.exports = (grunt) ->
           dest: '.tmp/',
           src: ['**/*.js']
         ]
+      nomin:
+        files: [
+          dest: 'dist/vendor.js'
+          src: [ '.tmp/concat/vendor.js' ]
+        ,
+          dest: 'dist/app.js',
+          src: [ '.tmp/concat/app.js' ]
+        ]
 
     coffee:
       dist:
@@ -50,7 +58,8 @@ module.exports = (grunt) ->
         ignorePath: 'app/'
         exclude: [
           'bower_components/requirejs',
-          'bower_components/requirejs-plugins'
+          'bower_components/requirejs-plugins',
+          'bower_components/ace-builds'
         ]
 
     jade:
@@ -127,10 +136,11 @@ module.exports = (grunt) ->
     'sass',
     'jade',
     'coffee:dist',
-    'concat',
+    'concat:generated',
     'ngAnnotate',
-    'uglify',
-    'cssmin',
+    'uglify:generated',
+    # 'copy:nomin',
+    'cssmin:generated',
     'usemin'
   ]
 
