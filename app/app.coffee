@@ -5,7 +5,7 @@ angular
     'geekywallet.editor'
   ]
   .config ($stateProvider, $urlRouterProvider) ->
-    # $urlRouterProvider.otherwise '/'
+    $urlRouterProvider.otherwise '/'
 
     $stateProvider.state 'landing',
       url: '/',

@@ -106,16 +106,58 @@ module.exports = (grunt) ->
         ]
 
     watch:
-      dist:
+      coffee:
         files: [
           'Gruntfile.coffee',
-          'app/index.html',
-          'app/**/*.js',
           'app/**/*.coffee',
-          'app/**/*.jade',
-          'lib/**/*.js',
         ]
-        tasks: ['build']
+        tasks: [
+          'useminPrepare',
+          'coffee',
+          'concat:generated',
+          'ngAnnotate',
+          'copy:nomin',
+          'cssmin:generated',
+          'usemin'
+        ]
+      index:
+        files: [
+          'app/index.html'
+        ]
+        tasks: [
+          'useminPrepare',
+          'copy:dist',
+          'usemin'
+        ]
+      js:
+        files: [
+          'app/**/*.js',
+          'lib/**/*.js'
+        ]
+        tasks: [
+          'newer:jshint:all',
+          'useminPrepare',
+          'copy:dist',
+          'concat:generated',
+          'copy:nomin',
+          'usemin'
+        ]
+      jade:
+        files: [
+          'app/**/*.jade'
+        ]
+        tasks: ['jade']
+      sass:
+        files: [
+          'app/**/*.scss'
+        ]
+        tasks: [
+          'useminPrepare',
+          'sass',
+          'concat:generated',
+          'cssmin:generated',
+          'usemin'
+        ]
 
     karma:
       unit:
@@ -129,18 +171,17 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'bowerInstall',
-    'newer:jshint:all',
+    'jshint:all',
     'test',
     'clean',
     'useminPrepare',
-    'copy',
+    'copy:dist',
     'sass',
     'jade',
     'coffee:dist',
     'concat:generated',
     'ngAnnotate',
     'uglify:generated',
-    # 'copy:nomin',
     'cssmin:generated',
     'usemin'
   ]
