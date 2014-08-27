@@ -59,7 +59,8 @@ module.exports = (grunt) ->
         exclude: [
           'bower_components/requirejs',
           'bower_components/requirejs-plugins',
-          'bower_components/ace-builds'
+          'bower_components/ace-builds',
+          'bower_components/sass-flex-mixins'
         ]
 
     jade:
@@ -76,7 +77,10 @@ module.exports = (grunt) ->
       dist:
         options:
           style: 'expanded'
-          loadPath: '.'
+          loadPath: [
+            '.',
+            'bower_components'
+          ]
         files: [
           expand: true
           cwd: 'app'
