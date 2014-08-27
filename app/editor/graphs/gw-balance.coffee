@@ -1,25 +1,32 @@
 angular
   .module 'geekywallet.editor.graphs'
-  .directive 'gwBalance', ($palette) ->
-    toBarCfg = (what) ->
-      (balance) ->
-        v for _, v of balance[what]
+  .directive 'gwBalance', ->
+    barSize = 40
+    gutter = 10
+
+    toStackedBarData = (balance) ->
+      for key, keyValues of balance
+        for person, value of keyValues
+          person: person
+          value: value
+          key: key
+
+    peopleCount = (balance) -> (Object.keys balance.spent).length
 
     scope:
       gwBalance: '='
     templateUrl: 'editor/graphs/gw-balance.html'
     link: (scope) ->
-      palette = $palette.random()
-
       scope.$watch 'gwBalance', (gwBalance) ->
-        scope.spentBarCfg =
-          data: [toBarCfg('spent') gwBalance]
-          max: 1000
-          compute:
-            color: palette.get
+        return unless gwBalance?.spent?
+        count = peopleCount gwBalance
 
-        scope.givenBarCfg =
-          data: [toBarCfg('given') gwBalance]
-          max: 1000
+        scope.stackedBarCfg =
+          data: toStackedBarData gwBalance
+          gutter: gutter
+          width: count * barSize + (count - 1) * gutter
+          accessor: ({value}) -> value
           compute:
-            color: palette.get
+            color: (_, item) -> switch item.key
+              when 'given' then 'green'
+              when 'spent' then 'red'
