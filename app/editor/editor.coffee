@@ -54,3 +54,4 @@ angular
     $scope.aceCfg =
       onLoad: $scope.aceLoaded
       readOnly: true
+      mode: 'wallet'
