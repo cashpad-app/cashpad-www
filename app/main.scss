@@ -3,10 +3,15 @@ $gray : #7e8287;
 $lgray : #d9dbdb;
 $black : #444;
 $dgray : #232c32;
+$red: #edc9d5;
 body, html, document, body > div {
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
+}
+
+.container-fluid.gcontainer {
   padding: 0;
 }
 
@@ -22,8 +27,8 @@ body, html, document, body > div {
 
 .headline {
   padding-top: 120px;
-  height: 650px;
-  background-color: #ccc;
+  height: 100%;
+  background: url(/images/headline.png) center center no-repeat;
   position: relative;
 
   .logo {
@@ -55,7 +60,7 @@ body, html, document, body > div {
         background-color: #c4ffdf;
       }
       &.red {
-        background-color: #edc9d5;
+        background-color: $red;
       }
       &.blue {
         background-color: #c5ddff;
@@ -74,10 +79,11 @@ body, html, document, body > div {
 }
 
 .what {
-  height: 1000px;
-
+  background: url(/images/overview.png) right 50px no-repeat;
+  margin-bottom: 80px;
   .explanation {
     width: 550px;
+    height: 640px;
     padding: 65px;
     color: $gray;
 
@@ -96,12 +102,14 @@ body, html, document, body > div {
   .features {
     width: 1040px;
     margin: 0 auto;
-    margin-top: 170px;
+    margin-top: 40px;
     .feature-item {
       width: 24.9%;
       .icon {
         width: 125px;
         height: 125px;
+        margin: 0 auto;
+        margin-bottom: 10px;
       }
       .title {
         color: $black;
@@ -112,6 +120,18 @@ body, html, document, body > div {
       .content {
         color: $gray;
         font-size: 15px;
+      }
+      &.simple .icon {
+        background: url(/images/simple.png) center center no-repeat;
+      }
+      &.systematic .icon {
+        background: url(/images/systematic.png) center center no-repeat;
+      }
+      &.funny .icon {
+        background: url(/images/funny.png) center center no-repeat;
+      }
+      &.handy .icon {
+        background: url(/images/handy.png) center center no-repeat;
       }
     }
     .border {
@@ -142,26 +162,53 @@ body, html, document, body > div {
     }
   }
   .use-case-item {
-    height: 430px;
+    background-color: #deeae4;
     .caption {
       color: $black;
       height: 160px;
       width: 160px;
-      padding-top: 61px;
+      padding-top: 64px;
       margin: 0 auto;
       margin-top: 135px;
       font-size: 24px;
       line-height: 30px;
-      background-color: rgba(237, 201, 213, 0.9);
       border-radius: 80px;
+    }
+    &.personalexpenses {
+       background: url(/images/personalexpenses-bg.png) center center repeat-y;
+      .image {
+        background: url(/images/personalexpenses.png) center center no-repeat;
+      }
+      .caption {
+        background-color: rgba(255, 222, 176, 0.9);
+        padding-top: 51px;
+      }
+    }
+    &.dinner {
+      background: url(/images/dinner-bg.png) center center repeat-y;
+      .image {
+        background: url(/images/dinner.png) center center no-repeat;
+      }
+      .caption {
+        background-color: rgba(237, 201, 213, 0.9);
+      }
+    }
+    &.roommates {
+      background: url(/images/roommates-bg.png) center center repeat-y;
+      .caption {
+        background-color: rgba(196, 255, 223, 0.9);
+      }
+      .image {
+        background: url(/images/roommates.png) center center no-repeat;
+      }
     }
     .image {
       background-color: #ccc;
-      height: 100%;
+      max-width: 290px;
+      height: 433px;
     }
   }
   .code-editor {
-    background-color: $dgray;
     height: 100%;
   }
 }
