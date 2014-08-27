@@ -23,7 +23,8 @@
     "ui-router": "~0.2.10",
     "bootstrap": "~3.2.0",
     "sass-flex-mixins": "~0.1.0",
-    "ace-builds": "git@github.com:buildo/ace-builds.git#master"
+    "ace-builds": "git@github.com:buildo/ace-builds.git#master",
+    "ui-utils": "~0.1.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.23"

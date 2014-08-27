@@ -1,5 +1,6 @@
 angular
   .module 'geekywallet', [
+    'ui.utils',
     'ui.router',
     'geekywallet.landing',
     'geekywallet.editor'

@@ -1,7 +1,7 @@
 angular
   .module 'geekywallet.editor.graphs'
   .directive 'gwBalance', ->
-    barSize = 40
+    barSize = 45
     gutter = 10
 
     toStackedBarData = (balance) ->
@@ -11,15 +11,14 @@ angular
           value: value
           key: key
 
-    peopleCount = (balance) -> (Object.keys balance.spent).length
-
     scope:
       gwBalance: '='
     templateUrl: 'editor/graphs/gw-balance.html'
     link: (scope) ->
       scope.$watch 'gwBalance', (gwBalance) ->
         return unless gwBalance?.spent?
-        count = peopleCount gwBalance
+
+        count = (Object.keys gwBalance.spent).length
 
         scope.stackedBarCfg =
           data: toStackedBarData gwBalance

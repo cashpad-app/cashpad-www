@@ -1,0 +1,13 @@
+.gw-balance {
+  svg {
+    text {
+      font-size: 20;
+      fill: #444;
+      font-weight: bold;
+
+      &.invert {
+        fill: #fff;
+      }
+    }
+  }
+}
