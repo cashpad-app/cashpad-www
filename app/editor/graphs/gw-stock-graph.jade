@@ -1,0 +1,5 @@
+svg(ng-attr-width="{{viewport.width}}" ng-attr-height="{{viewport.height}}")
+  path(ng-repeat="curve in curves" ng-attr-d="{{curve._line}}" 
+    stroke="{{curve.color}}" fill="none" stroke-width="3")
+  path(ng-repeat="curve in curves" ng-attr-d="{{curve._area}}" 
+    stroke="none"  fill="none")
