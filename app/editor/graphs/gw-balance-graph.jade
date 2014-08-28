@@ -1,4 +1,9 @@
-svg(ng-attr-width="{{viewport.width}}" ng-attr-height="{{viewport.height}}")
+svg(ng-attr-width="{{viewport.width}}" ng-attr-height="{{viewport.height}}" ng-if="curves && curves.length")
   g(ng-attr-transform="translate({{viewport.paddingLeft}}, {{viewport.paddingTop}})")
-    path(ng-repeat="curve in curves" ng-attr-d="{{curve._line}}" fill="{{curve.color}}")
-    text(ng-repeat="curve in curves | gwBalanceUniquePerson track by curve.item.person" ng-attr-x="{{curve.line.centroid[0]}}" y="15" text-anchor="middle" ng-class="{invert: (curve.line.centroid[1] - viewport.innerHeight / 2) <= 6}") {{curve.item.person}}
+    //- Y axis with labels
+    line.Y-axis(ng-attr-x1="{{-viewport.paddingLeft / 3}}" ng-attr-x2="{{-viewport.paddingLeft / 3}}" y1="0" ng-attr-y2="{{viewport.innerHeight}}")
+    //- line
+
+    //- stacked bars with labels
+    path.bar(ng-repeat="curve in curves" ng-attr-d="{{curve._line}}" ng-class="curve.colorClass")
+    text(ng-repeat="curve in curves | gwBalanceUniquePerson track by curve.item.person" ng-attr-x="{{curve.line.centroid[0]}}" y="15" text-anchor="middle" ng-class="{invert: (curve.line.centroid[1] - viewport.innerHeight / 2) <= 6}") {{curve.item.person | limitTo:5}}

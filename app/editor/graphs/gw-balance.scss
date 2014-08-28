@@ -9,5 +9,23 @@
         fill: #fff;
       }
     }
+
+    .bar {
+      &.balance {
+        fill: LightSlateGray;
+      }
+
+      &.given {
+        fill: MediumSeaGreen;
+      }
+
+      &.spent {
+        fill: Tomato;
+      }
+    }
+
+    .Y-axis {
+      stroke: #ccc;
+    }
   }
 }

@@ -10,9 +10,10 @@ angular
       $filter('unique') maxed, 'item.person'
 
   .directive 'gwBalance', ->
-    barSize = 40
-    gutter = 10
-    padding = 10
+    barSize = 42
+    gutter = 5
+    padding = gutter
+    paddingLeft = 30
 
     toBarData = (balance) ->
       for key, keyValues of balance
@@ -24,6 +25,14 @@ angular
           key: key
           index: index
 
+    nActiveParticipants = (balance) ->
+      participants = {}
+      for key, keyValues of balance
+        for person, value of keyValues
+          if value > 0
+            participants[person] = true
+      Object.keys(participants).length
+
     scope:
       gwBalance: '='
     templateUrl: 'editor/graphs/gw-balance.html'
@@ -31,11 +40,9 @@ angular
       scope.$watch 'gwBalance', (gwBalance) ->
         return unless gwBalance?.spent?
 
-        count = (Object.keys gwBalance.spent).length
+        count = nActiveParticipants gwBalance
         innerWidth = count * barSize + (count - 1) * gutter
         barData = toBarData gwBalance
-
-        console.log barData
 
         scope.barCfg =
           stacked: true
@@ -44,9 +51,8 @@ angular
           width: innerWidth + 2 * padding
           accessor: ({value}) -> value
           padding: padding
+          paddingLeft: paddingLeft
           compute:
-            color: (i, item) ->
+            colorClass: (i, item) ->
               sibling = barData[if i == 0 then 1 else 0][item.index]
-              if sibling.value > item.value then '#ccc' else switch item.key
-                when 'given' then 'green'
-                when 'spent' then 'red'
+              if sibling.value > item.value then 'balance' else item.key
