@@ -1,3 +1,4 @@
 svg(ng-attr-width="{{viewport.width}}" ng-attr-height="{{viewport.height}}")
-  path(ng-repeat="curve in curves" ng-attr-d="{{curve._line}}" fill="{{curve.color}}")
-  text(ng-repeat="curve in curves | unique:'item.person' track by curve.item.person" ng-attr-x="{{curve.line.centroid[0]}}" ng-attr-y="{{20}}" text-anchor="middle" ng-class="{invert: (viewport.height - curve.line.centroid[1]) > 30}") {{curve.item.person | limitTo:5}}
+  g(ng-attr-transform="translate({{viewport.paddingLeft}}, {{viewport.paddingTop}})")
+    path(ng-repeat="curve in curves" ng-attr-d="{{curve._line}}" fill="{{curve.color}}")
+    text(ng-repeat="curve in curves | unique:'item.person' track by curve.item.person" ng-attr-x="{{curve.line.centroid[0]}}" ng-attr-y="{{20}}" text-anchor="middle" ng-class="{invert: (viewport.height - curve.line.centroid[1]) > 30}") {{curve.item.person | limitTo:5}}
