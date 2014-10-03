@@ -22,6 +22,11 @@ module.exports = (grunt) ->
         ,
           expand: true
           cwd: 'app'
+          dest: 'dist/',
+          src: ['images/**/*.{png,jpg,jpeg,gif}']
+        ,
+          expand: true
+          cwd: 'app'
           dest: '.tmp/',
           src: ['**/*.js']
         ]
