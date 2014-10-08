@@ -1,7 +1,6 @@
 svg(
   ng-attr-width="{{viewport.width + 2*viewport.paddingLeft}}"
   ng-attr-height="{{viewport.height}}"
-  shape-rendering="geometricPrecision"
   )
   g(ng-attr-transform="translate({{viewport.paddingLeft}}, {{viewport.paddingTop}})")
     line.mouse(
@@ -56,20 +55,23 @@ svg(
       circle(
         ng-attr-cx="{{xscale(curves[currentPath].item[currentPoint].index)}}"
         ng-attr-cy="{{yscale(curves[currentPath].item[currentPoint].value)}}"
-        ng-hide="currentPoint==undefined"
+        ng-hide="currentPoint === undefined"
         r="8")
       text.value(
         ng-attr-x="{{xscale(curves[currentPath].item[currentPoint].index)}}"
         ng-attr-y="{{yscale(curves[currentPath].item[currentPoint].value) - 15}}"
         text-anchor = "middle"
-        ng-hide="currentPoint==undefined"
+        ng-hide="angular.isUndefined(currentPoint)"
         ) {{+curves[currentPath].item[currentPoint].value.toFixed(2)}}
 
-  g(ng-attr-transform="translate({{viewport.width - viewport.paddingRight + 10}}, {{viewport.paddingTop}})")
+  g(ng-attr-transform="translate({{viewport.width - viewport.paddingRight + 30}}, {{viewport.paddingTop + 15}})")
     text.user(
       ng-repeat="curve in curves"
       x="0"
       ng-attr-y="{{$index * 20}}"
       text-anchor = "left"
+      font-size = "{{$index == currentPath ? 20 : 15}}"
+      font-weight = "{{$index == currentPath ? 'bold' : 'normal'}}"
       fill = "{{curve.color}}"
+      ng-click="selectPath($event,$index)"
       ) {{curve.item[0].user}}

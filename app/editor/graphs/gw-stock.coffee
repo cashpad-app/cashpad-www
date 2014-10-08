@@ -7,14 +7,17 @@ angular
     templateUrl: 'editor/graphs/gw-stock.html'
     link: (scope) ->
       scope.mouseMove = ($event) ->
-        # console.log scope.stockCfg.$viewport.width
-        if $event.pageX <= scope.stockCfg.$viewport.width - scope.stockCfg.paddingRight and $event.pageX >= scope.stockCfg.padding
+        if $event.pageX < scope.stockCfg.padding
+          scope.lineX = 0
+        else if $event.pageX > scope.stockCfg.$viewport.width - scope.stockCfg.paddingRight
+          scope.lineX = scope.stockCfg.$viewport.width - scope.stockCfg.paddingRight - scope.stockCfg.padding
+        else
           scope.lineX = $event.pageX - scope.stockCfg.padding
-          if scope.currentPath
-            scope.currentPoint = Math.round(scope.lineX /
-                  ((scope.stockCfg.$viewport.width - (scope.stockCfg.padding + scope.stockCfg.paddingRight)) /
-                    (scope.gwStock[scope.currentPath].length - 1)))
-            # console.log $event.pageX
+
+        if scope.currentPath?
+          scope.currentPoint = Math.round(scope.lineX /
+                ((scope.stockCfg.$viewport.width - (scope.stockCfg.padding + scope.stockCfg.paddingRight)) /
+                  (scope.gwStock[0].length - 1)))
 
       scope.selectPath = ($event, $index) ->
         scope.currentPath = $index
@@ -50,7 +53,7 @@ angular
           # width: 500
           # height: 300
           padding: 10
-          paddingRight: 100
+          paddingRight: 170
           compute:
             color: (item) -> palette[item % palette.length]
           closed: true

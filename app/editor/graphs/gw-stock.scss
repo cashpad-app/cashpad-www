@@ -3,14 +3,16 @@
   height: 300px;
   svg {
     text {
-      font-size: 20;
-      font-weight: bold;
 
       &.value {
+        font-size: 20;
+        font-weight: bold;
         fill: #444;
       }
 
       &.invert {
+        font-size: 20;
+        font-weight: bold;
         fill: #fff;
       }
     }
@@ -48,5 +50,9 @@
         } 
       }
     }
+  }
+
+  [ng-click] {
+    cursor: pointer;
   }
 }
