@@ -1,5 +1,75 @@
-svg(ng-attr-width="{{viewport.width}}" ng-attr-height="{{viewport.height}}")
-  path(ng-repeat="curve in curves" ng-attr-d="{{curve._line}}" 
-    stroke="{{curve.color}}" fill="none" stroke-width="3")
-  path(ng-repeat="curve in curves" ng-attr-d="{{curve._area}}" 
-    stroke="none"  fill="none")
+svg(
+  ng-attr-width="{{viewport.width + 2*viewport.paddingLeft}}"
+  ng-attr-height="{{viewport.height}}"
+  shape-rendering="geometricPrecision"
+  )
+  g(ng-attr-transform="translate({{viewport.paddingLeft}}, {{viewport.paddingTop}})")
+    line.mouse(
+      ng-attr-x1="{{lineX}}"
+      y1="0"
+      ng-attr-x2="{{lineX}}"
+      ng-attr-y2="{{viewport.height}}"
+      )
+
+    line.X-Axis(
+      x1="0"
+      ng-attr-y1="{{yscale(0)}}"
+      ng-attr-x2="{{viewport.innerWidth}}"
+      ng-attr-y2="{{yscale(0)}}"
+      stroke="gray"
+      )
+
+    path(
+      ng-repeat="curve in curves" 
+      ng-attr-d="{{curve._line}}" 
+      stroke="{{curve.color}}" 
+      fill="none" 
+      stroke-width="{{$index==currentPath ? 2 : 2}}"
+      )
+
+    path.click-target(
+      ng-repeat="curve in curves" 
+      ng-attr-d="{{curve._line}}" 
+      fill="none"
+      stroke="{{curve.color}}" 
+      stroke-width="20"
+      ng-click="selectPath($event,$index)"
+      ng-hide="$index==currentPath"
+      )
+    
+    
+    line.Y-Axis(
+      x1="0"
+      ng-attr-y1="{{viewport.height}}"
+      x2="0"
+      y2="0"
+      stroke="gray"
+      )
+
+    circle(
+        ng-repeat="item in curves[currentPath].item"
+        ng-attr-cx="{{xscale(item.index)}}"
+        ng-attr-cy="{{yscale(item.value)}}"
+        fill = "{{curves[currentPath].color}}"
+        r="4")
+    g.hover
+      circle(
+        ng-attr-cx="{{xscale(curves[currentPath].item[currentPoint].index)}}"
+        ng-attr-cy="{{yscale(curves[currentPath].item[currentPoint].value)}}"
+        ng-hide="currentPoint==undefined"
+        r="8")
+      text.value(
+        ng-attr-x="{{xscale(curves[currentPath].item[currentPoint].index)}}"
+        ng-attr-y="{{yscale(curves[currentPath].item[currentPoint].value) - 15}}"
+        text-anchor = "middle"
+        ng-hide="currentPoint==undefined"
+        ) {{+curves[currentPath].item[currentPoint].value.toFixed(2)}}
+
+  g(ng-attr-transform="translate({{viewport.width - viewport.paddingRight + 10}}, {{viewport.paddingTop}})")
+    text.user(
+      ng-repeat="curve in curves"
+      x="0"
+      ng-attr-y="{{$index * 20}}"
+      text-anchor = "left"
+      fill = "{{curve.color}}"
+      ) {{curve.item[0].user}}

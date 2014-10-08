@@ -1,12 +1,51 @@
 .gw-stock {
+  width: 100%;
+  height: 300px;
   svg {
     text {
       font-size: 20;
-      fill: #444;
       font-weight: bold;
+
+      &.value {
+        fill: #444;
+      }
 
       &.invert {
         fill: #fff;
+      }
+    }
+    .hover circle {
+      stroke-width:1;
+      stroke:black;
+      fill: white;
+    }
+
+    circle {
+      stroke-width:0;
+      stroke:black;
+    } 
+
+    line{
+
+      &.X-axis{
+        stroke: black;
+        stroke-width: 1;
+      }
+
+      &.mouse{
+        stroke: gray;
+        stroke-width: 1;
+      }
+    }
+
+    path {
+      &.click-target{
+        opacity: 0;
+
+        &:hover {
+          opacity: 0.2;
+          stroke-linejoin: round;    
+        } 
       }
     }
   }

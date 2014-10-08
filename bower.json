@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "angular": "~1.2.23",
-    "angular-paths": "~0.1.6",
+    "angular-paths": "https://github.com/buildo/angular-paths.git#master",
     "geekywallet": "git@github.com:buildo/geekywallet.git#master",
     "angular-reconnecting-websocket": "~0.1.1",
     "angular-ui-ace": "bower",
