@@ -1,13 +1,79 @@
 .gw-stock {
+  width: 100%;
+  height: 300px;
   svg {
     text {
-      font-size: 20;
-      fill: #444;
-      font-weight: bold;
+
+      &.value {
+        font-size: 20;
+        font-weight: bold;
+        text-anchor: middle;
+        fill: #f1f1f1;
+      }
+
+      &.user {
+        text-anchor: left;
+      }
 
       &.invert {
+        font-size: 20;
+        font-weight: bold;
         fill: #fff;
       }
     }
+    .hover circle {
+      stroke-width:1;
+      stroke:black;
+      fill: white;
+    }
+
+    circle {
+      stroke-width:0;
+      stroke:black;
+    } 
+
+    line{
+      stroke: gray;
+
+      &.X-axis{
+        stroke: black;
+        stroke-width: 1;
+      }
+
+      &.mouse{
+        stroke: gray;
+        stroke-width: 1;
+      }
+    }
+
+    path {
+      fill: none;
+
+      &.click-target{
+        opacity: 0;
+        stroke-width: 20;
+
+        &:hover {
+          opacity: 0.2;
+          stroke-linejoin: round;    
+        } 
+      }
+    }
+
+    rect {
+      &.value{
+        // rx : 10px;
+        // ry : 10px;
+        // width : 60px;
+        // height : 40px;
+        opacity : 1;
+        // fill : #cccccc;
+      }
+
+    }
+  }
+
+  [ng-click] {
+    cursor: pointer;
   }
 }

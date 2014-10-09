@@ -1,5 +1,89 @@
-svg(ng-attr-width="{{viewport.width}}" ng-attr-height="{{viewport.height}}")
-  path(ng-repeat="curve in curves" ng-attr-d="{{curve._line}}" 
-    stroke="{{curve.color}}" fill="none" stroke-width="3")
-  path(ng-repeat="curve in curves" ng-attr-d="{{curve._area}}" 
-    stroke="none"  fill="none")
+svg(
+  ng-attr-width="{{viewport.width + 2*viewport.paddingLeft}}"
+  ng-attr-height="{{viewport.height}}"
+  )
+  g(ng-attr-transform="translate({{viewport.paddingLeft}}, {{viewport.paddingTop}})")
+    line.mouse(
+      ng-attr-x1="{{lineX}}"
+      y1="0"
+      ng-attr-x2="{{lineX}}"
+      ng-attr-y2="{{viewport.height}}"
+      )
+
+    line.X-Axis(
+      x1="0"
+      ng-attr-y1="{{yscale(0)}}"
+      ng-attr-x2="{{viewport.innerWidth}}"
+      ng-attr-y2="{{yscale(0)}}"
+      )
+
+    path(
+      ng-repeat="curve in curves" 
+      ng-attr-d="{{curve._line}}" 
+      ng-attr-stroke="{{curve.color}}" 
+      stroke-width="{{$index==currentPath ? 2 : 2}}"
+      )
+
+    path.click-target(
+      ng-repeat="curve in curves" 
+      ng-attr-d="{{curve._line}}" 
+      ng-attr-stroke="{{curve.color}}" 
+      ng-click="selectPath($event,$index)"
+      ng-hide="$index==currentPath"
+      )
+    
+    line.Y-Axis(
+      x1="0"
+      ng-attr-y1="{{viewport.innerWidth}}"
+      x2="0"
+      y2="0"
+      )
+
+    line.Y-steps(
+      ng-repeat="y in ySteps"
+      ng-attr-x1="{{-viewport.paddingLeft + 5}}"
+      x2="0"
+      ng-attr-y1="{{yscale(y)}}"
+      ng-attr-y2="{{yscale(y)}}"
+      )
+
+    circle(
+        ng-repeat="item in curves[currentPath].item"
+        ng-attr-cx="{{xscale(item.index)}}"
+        ng-attr-cy="{{yscale(item.value)}}"
+        fill = "{{curves[currentPath].color}}"
+        r="4")
+    
+    g.hover
+      circle(
+        ng-attr-cx="{{currentPath === undefined ? 0 : xscale(curves[currentPath].item[currentPoint].index)}}"
+        ng-attr-cy="{{currentPath === undefined ? 0 : yscale(curves[currentPath].item[currentPoint].value)}}"
+        ng-hide="currentPoint === undefined"
+        r="8")
+
+      rect.value(
+        ng-attr-x = "{{getRectTextX(xscale)}}"
+        ng-attr-y = "{{getRectTextY(yscale)}}"
+        ng-attr-width = "{{currentPath === undefined ? 0 : curves[currentPath].item[currentPoint].value.toFixed(2).toString().length * 11}}"
+        height = "26"
+        ng-attr-fill = "{{curves[currentPath].color}}"
+        rx = "10"
+        ry = "10"
+        ng-hide = "currentPoint === undefined"
+        )
+      text.value(
+        ng-attr-x = "{{getTextX(xscale)}}"
+        ng-attr-y = "{{getTextY(yscale)}}"
+        ng-hide = "currentPoint === undefined"
+        ) {{+curves[currentPath].item[currentPoint].value.toFixed(2)}}
+
+  g(ng-attr-transform="translate({{viewport.width - viewport.paddingRight + 30}}, {{viewport.paddingTop + 15}})")
+    text.user(
+      ng-repeat="curve in curves"
+      x="0"
+      ng-attr-y="{{$index * 20}}"
+      ng-attr-font-size = "{{$index == currentPath ? 20 : 15}}"
+      ng-attr-font-weight = "{{$index == currentPath ? 'bold' : 'normal'}}"
+      ng-attr-fill = "{{curve.color}}"
+      ng-click="selectPath($event,$index)"
+      ) {{curve.item[0].user}}

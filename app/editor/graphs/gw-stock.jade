@@ -1,1 +1,7 @@
-.gw-stock(paths-stock="stockCfg" paths-template="editor/graphs/gw-stock-graph.html")
+.gw-stock(
+  paths-stock="stockCfg" 
+  paths-template="editor/graphs/gw-stock-graph.html"
+  ng-mousemove="mouseMove($event)"
+  ng-if="stockCfg.data.length"
+  )
+  
