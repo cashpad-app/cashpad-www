@@ -22,6 +22,7 @@ angular
           index: index
           user: p
           value: new_val
+          line: l.line
         p_data.push line
       cumulativeLines.push p_data
     $scope.cumulativeLines = cumulativeLines

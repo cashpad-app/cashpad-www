@@ -5,5 +5,6 @@ angular
 
     angular.extend lines,
       $set: (l) ->
-        params = ([0, lines.length - 1].concat l)
+        params = ([0, lines.length].concat l)
         Array.prototype.splice.apply lines, params
+

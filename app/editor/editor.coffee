@@ -29,8 +29,11 @@ angular
 
     setupLiveWallet = (editor) ->
       editor.selection.on 'changeCursor', ->
-        $state.go 'editor.line',
-          lineIndex: editor.selection.getSelectionAnchor().row
+        if $state.is 'editor.line'
+          $state.go 'editor.line',
+            lineIndex: editor.selection.getSelectionAnchor().row
+        else if $state.is 'editor.compute'
+          $scope.$broadcast 'computeLineChangedInEditor', editor.selection.getSelectionAnchor().row
 
       editor.on 'change', ->
         value = editor.getValue()
@@ -39,6 +42,13 @@ angular
           $computedLines.$set $wallet value
         catch e
           console.error e
+
+    setupLiveCompute = (editor) ->
+      $scope.$on 'computeLineChangedInGraph', (event, line) -> 
+        if $state.is 'editor.compute'
+          editor.clearSelection()
+          editor.selection.moveCursorTo line - 1, 0, true
+
 
     aceWasLoaded = false
     $scope.aceLoaded = (editor) ->
@@ -50,6 +60,7 @@ angular
 
       setupConnection editor
       setupLiveWallet editor
+      setupLiveCompute editor
 
     $scope.aceCfg =
       onLoad: $scope.aceLoaded

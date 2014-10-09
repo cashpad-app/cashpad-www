@@ -1,11 +1,20 @@
 angular
   .module 'geekywallet.editor.graphs'
-  .directive 'gwStock', ->
+  .directive 'gwStock', ($timeout) ->
 
     scope:
       gwStock: '='
     templateUrl: 'editor/graphs/gw-stock.html'
     link: (scope) ->
+      scope.$on 'computeLineChangedInEditor', (event, line) ->
+        if scope.currentPoint?
+          for path in scope.stockCfg.data
+            for item, i in path
+              if item.line == line + 1
+                $timeout ->
+                  scope.currentPoint = i
+                break
+
       scope.mouseMove = ($event) ->
         if $event.pageX < scope.stockCfg.padding
           scope.lineX = 0
@@ -15,9 +24,12 @@ angular
           scope.lineX = $event.pageX - scope.stockCfg.padding
 
         if scope.currentPath?
-          scope.currentPoint = Math.round(scope.lineX /
+          newCurrentPoint = Math.round(scope.lineX /
                 ((scope.stockCfg.$viewport.width - (scope.stockCfg.padding + scope.stockCfg.paddingRight)) /
                   (scope.gwStock[0].length - 1)))
+          if newCurrentPoint != scope.currentPoint
+            scope.currentPoint = newCurrentPoint
+            scope.$emit 'computeLineChangedInGraph', scope.stockCfg.data[scope.currentPath][scope.currentPoint].line
 
       scope.selectPath = ($event, $index) ->
         scope.currentPath = $index
@@ -64,7 +76,6 @@ angular
           rectY + 19
 
       scope.$watch 'gwStock', (gwStock) ->
-
         palette = ['red', 'blue', 'green', 'gray', 'salmon', 'yellow', 'brown', 'purple']
 
         # group duplicates together
