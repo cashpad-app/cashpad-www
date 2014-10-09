@@ -38,9 +38,18 @@ svg(
     
     line.Y-Axis(
       x1="0"
-      ng-attr-y1="{{viewport.height}}"
+      ng-attr-y1="{{viewport.innerWidth}}"
       x2="0"
       y2="0"
+      stroke="gray"
+      )
+
+    line.Y-steps(
+      ng-repeat="y in ySteps"
+      ng-attr-x1="{{-viewport.paddingLeft + 5}}"
+      x2="0"
+      ng-attr-y1="{{yscale(y)}}"
+      ng-attr-y2="{{yscale(y)}}"
       stroke="gray"
       )
 
@@ -58,8 +67,8 @@ svg(
         r="8")
 
       rect.value(
-        ng-attr-x="{{getRectTextX(xscale)}}"
-        ng-attr-y="{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
+        ng-attr-x = "{{getRectTextX(xscale)}}"
+        ng-attr-y = "{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
           yscale(curves[currentPath].item[currentPoint].value) - 42 : \
           yscale(curves[currentPath].item[currentPoint].value) + 16}}"
         width = "{{curves[currentPath].item[currentPoint].value.toFixed(2).toString().length * 11}}"
@@ -67,17 +76,16 @@ svg(
         fill = "{{curves[currentPath].color}}"
         rx = "10"
         ry = "10"
+        ng-hide = "currentPoint === undefined"
         )
       text.value(
-        ng-attr-x="{{getTextX(xscale)}}"
-        ng-attr-y="{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
+        ng-attr-x = "{{getTextX(xscale)}}"
+        ng-attr-y = "{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
           yscale(curves[currentPath].item[currentPoint].value) - 23 : \
           yscale(curves[currentPath].item[currentPoint].value) + 35}}"
         text-anchor = "middle"
-        ng-hide="angular.isUndefined(currentPoint)"
+        ng-hide = "currentPoint === undefined"
         ) {{+curves[currentPath].item[currentPoint].value.toFixed(2)}}
-
-    
 
   g(ng-attr-transform="translate({{viewport.width - viewport.paddingRight + 30}}, {{viewport.paddingTop + 15}})")
     text.user(

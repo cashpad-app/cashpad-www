@@ -24,6 +24,9 @@ angular
         scope.mouseMove($event)
 
       scope.getRectTextX = (xscale) ->
+        if !scope.currentPoint?
+          return 0
+        
         pointX = xscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].index)
         valueLength = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length
         
@@ -35,17 +38,16 @@ angular
           scope.stockCfg.$viewport.innerWidth - valueLength * 11 - 3
 
       scope.getTextX = (xscale) ->
-        scope.getRectTextX(xscale) + scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length * 5.5
-
-
-      # scope.getTextY = (yscale) ->
-      #   value = yscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].value)
-      #   return value - 42 > 5 ? value - 23 : value + 35
+        if !scope.currentPoint?
+          0
+        else
+          scope.getRectTextX(xscale) + scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length * 5.5
 
       scope.$watch 'gwStock', (gwStock) ->
 
         palette = ['red', 'blue', 'green', 'gray', 'salmon', 'yellow', 'brown', 'purple']
 
+        # group duplicates together
         toRemove = []
 
         for currentPath, i in gwStock
@@ -65,12 +67,31 @@ angular
         for r, count in toRemove
           gwStock.splice(r - count, 1)
 
+        # create array with Y value of each 'step'
+        scope.ySteps = []
+        values = []
+        for currentPath in gwStock
+          for item in currentPath
+            values.push item.value
+
+        max = (acc, current) -> Math.max(acc,current)
+        min = (acc, current) -> Math.min(acc,current)
+
+        maxValue = values.reduce max, -Infinity
+        minValue = Math.abs values.reduce(min, Infinity)
+
+        stepSize = Math.round(((maxValue + minValue) / 10))
+
+        for i in [0..maxValue / stepSize]
+          scope.ySteps.push i * stepSize
+
+        for i in [1..minValue / stepSize]
+          scope.ySteps.push i * -stepSize
+
         scope.stockCfg =
           data: gwStock
           xaccessor: (item) -> item.index
           yaccessor: (item) -> item.value
-          # width: 500
-          # height: 300
           padding: 10
           paddingRight: 170
           compute:
