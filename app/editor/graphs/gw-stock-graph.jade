@@ -15,23 +15,19 @@ svg(
       ng-attr-y1="{{yscale(0)}}"
       ng-attr-x2="{{viewport.innerWidth}}"
       ng-attr-y2="{{yscale(0)}}"
-      stroke="gray"
       )
 
     path(
       ng-repeat="curve in curves" 
       ng-attr-d="{{curve._line}}" 
-      stroke="{{curve.color}}" 
-      fill="none" 
+      ng-attr-stroke="{{curve.color}}" 
       stroke-width="{{$index==currentPath ? 2 : 2}}"
       )
 
     path.click-target(
       ng-repeat="curve in curves" 
       ng-attr-d="{{curve._line}}" 
-      fill="none"
-      stroke="{{curve.color}}" 
-      stroke-width="20"
+      ng-attr-stroke="{{curve.color}}" 
       ng-click="selectPath($event,$index)"
       ng-hide="$index==currentPath"
       )
@@ -41,7 +37,6 @@ svg(
       ng-attr-y1="{{viewport.innerWidth}}"
       x2="0"
       y2="0"
-      stroke="gray"
       )
 
     line.Y-steps(
@@ -50,7 +45,6 @@ svg(
       x2="0"
       ng-attr-y1="{{yscale(y)}}"
       ng-attr-y2="{{yscale(y)}}"
-      stroke="gray"
       )
 
     circle(
@@ -59,31 +53,27 @@ svg(
         ng-attr-cy="{{yscale(item.value)}}"
         fill = "{{curves[currentPath].color}}"
         r="4")
+    
     g.hover
       circle(
-        ng-attr-cx="{{xscale(curves[currentPath].item[currentPoint].index)}}"
-        ng-attr-cy="{{yscale(curves[currentPath].item[currentPoint].value)}}"
+        ng-attr-cx="{{currentPath === undefined ? 0 : xscale(curves[currentPath].item[currentPoint].index)}}"
+        ng-attr-cy="{{currentPath === undefined ? 0 : yscale(curves[currentPath].item[currentPoint].value)}}"
         ng-hide="currentPoint === undefined"
         r="8")
 
       rect.value(
         ng-attr-x = "{{getRectTextX(xscale)}}"
-        ng-attr-y = "{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
-          yscale(curves[currentPath].item[currentPoint].value) - 42 : \
-          yscale(curves[currentPath].item[currentPoint].value) + 16}}"
-        width = "{{curves[currentPath].item[currentPoint].value.toFixed(2).toString().length * 11}}"
+        ng-attr-y = "{{getRectTextY(yscale)}}"
+        ng-attr-width = "{{currentPath === undefined ? 0 : curves[currentPath].item[currentPoint].value.toFixed(2).toString().length * 11}}"
         height = "26"
-        fill = "{{curves[currentPath].color}}"
+        ng-attr-fill = "{{curves[currentPath].color}}"
         rx = "10"
         ry = "10"
         ng-hide = "currentPoint === undefined"
         )
       text.value(
         ng-attr-x = "{{getTextX(xscale)}}"
-        ng-attr-y = "{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
-          yscale(curves[currentPath].item[currentPoint].value) - 23 : \
-          yscale(curves[currentPath].item[currentPoint].value) + 35}}"
-        text-anchor = "middle"
+        ng-attr-y = "{{getTextY(yscale)}}"
         ng-hide = "currentPoint === undefined"
         ) {{+curves[currentPath].item[currentPoint].value.toFixed(2)}}
 
@@ -92,9 +82,8 @@ svg(
       ng-repeat="curve in curves"
       x="0"
       ng-attr-y="{{$index * 20}}"
-      text-anchor = "left"
-      font-size = "{{$index == currentPath ? 20 : 15}}"
-      font-weight = "{{$index == currentPath ? 'bold' : 'normal'}}"
-      fill = "{{curve.color}}"
+      ng-attr-font-size = "{{$index == currentPath ? 20 : 15}}"
+      ng-attr-font-weight = "{{$index == currentPath ? 'bold' : 'normal'}}"
+      ng-attr-fill = "{{curve.color}}"
       ng-click="selectPath($event,$index)"
       ) {{curve.item[0].user}}

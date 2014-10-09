@@ -37,11 +37,31 @@ angular
         else
           scope.stockCfg.$viewport.innerWidth - valueLength * 11 - 3
 
+      scope.getRectTextY = (yscale) ->
+        if !scope.currentPath?
+          return 0
+
+        value = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value
+        if yscale(value) - 42 > 5
+          yscale(value) - 42
+        else
+          yscale(value) + 16
+
       scope.getTextX = (xscale) ->
         if !scope.currentPoint?
           0
         else
           scope.getRectTextX(xscale) + scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length * 5.5
+
+      scope.getTextY = (yscale) ->
+        if !scope.currentPoint?
+          return 0
+
+        rectY = scope.getRectTextY(yscale)
+        if rectY > yscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].value)
+          rectY + 19
+        else
+          rectY + 19
 
       scope.$watch 'gwStock', (gwStock) ->
 

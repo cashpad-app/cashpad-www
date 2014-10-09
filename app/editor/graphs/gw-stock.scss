@@ -7,8 +7,12 @@
       &.value {
         font-size: 20;
         font-weight: bold;
-        // fill: #444;
+        text-anchor: middle;
         fill: #f1f1f1;
+      }
+
+      &.user {
+        text-anchor: left;
       }
 
       &.invert {
@@ -29,6 +33,7 @@
     } 
 
     line{
+      stroke: gray;
 
       &.X-axis{
         stroke: black;
@@ -42,8 +47,11 @@
     }
 
     path {
+      fill: none;
+
       &.click-target{
         opacity: 0;
+        stroke-width: 20;
 
         &:hover {
           opacity: 0.2;
