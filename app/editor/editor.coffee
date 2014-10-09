@@ -13,9 +13,9 @@ angular
     'geekywallet.wallet',
     'geekywallet.connection'
   ]
-  .controller 'EditorCtrl', ($scope, $connection, $computedLines, $originalLines, $wallet, $state) ->
+  .controller 'EditorCtrl', ($scope, $connection, $computedLines, $originalLines, $wallet, $state, $stateParams) ->
     setupConnection = (editor) ->
-      doc = $connection.get 'users', 'seth'
+      doc = $connection.get 'docs', $stateParams.docID
       doc.subscribe()
       doc.whenReady ->
         console.log 'ready'

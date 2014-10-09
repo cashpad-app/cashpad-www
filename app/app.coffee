@@ -14,7 +14,7 @@ angular
       controller: 'LandingCtrl'
 
     $stateProvider.state 'editor',
-      url: '/editor',
+      url: '/editor/:docID',
       templateUrl: 'editor/editor.html',
       controller: 'EditorCtrl'
 
