@@ -23,6 +23,25 @@ angular
         scope.currentPath = $index
         scope.mouseMove($event)
 
+      scope.getRectTextX = (xscale) ->
+        pointX = xscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].index)
+        valueLength = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length
+        
+        if pointX - valueLength * 5.5 > 0 and pointX + valueLength * 5.5 < scope.stockCfg.$viewport.innerWidth
+          pointX - valueLength * 5.5
+        else if pointX - valueLength * 5.5 <= 0 
+          3
+        else
+          scope.stockCfg.$viewport.innerWidth - valueLength * 11 - 3
+
+      scope.getTextX = (xscale) ->
+        scope.getRectTextX(xscale) + scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length * 5.5
+
+
+      # scope.getTextY = (yscale) ->
+      #   value = yscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].value)
+      #   return value - 42 > 5 ? value - 23 : value + 35
+
       scope.$watch 'gwStock', (gwStock) ->
 
         palette = ['red', 'blue', 'green', 'gray', 'salmon', 'yellow', 'brown', 'purple']

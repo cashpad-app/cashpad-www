@@ -7,7 +7,8 @@
       &.value {
         font-size: 20;
         font-weight: bold;
-        fill: #444;
+        // fill: #444;
+        fill: #f1f1f1;
       }
 
       &.invert {
@@ -49,6 +50,18 @@
           stroke-linejoin: round;    
         } 
       }
+    }
+
+    rect {
+      &.value{
+        // rx : 10px;
+        // ry : 10px;
+        // width : 60px;
+        // height : 40px;
+        opacity : 1;
+        // fill : #cccccc;
+      }
+
     }
   }
 

@@ -36,7 +36,6 @@ svg(
       ng-hide="$index==currentPath"
       )
     
-    
     line.Y-Axis(
       x1="0"
       ng-attr-y1="{{viewport.height}}"
@@ -57,12 +56,28 @@ svg(
         ng-attr-cy="{{yscale(curves[currentPath].item[currentPoint].value)}}"
         ng-hide="currentPoint === undefined"
         r="8")
+
+      rect.value(
+        ng-attr-x="{{getRectTextX(xscale)}}"
+        ng-attr-y="{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
+          yscale(curves[currentPath].item[currentPoint].value) - 42 : \
+          yscale(curves[currentPath].item[currentPoint].value) + 16}}"
+        width = "{{curves[currentPath].item[currentPoint].value.toFixed(2).toString().length * 11}}"
+        height = "26"
+        fill = "{{curves[currentPath].color}}"
+        rx = "10"
+        ry = "10"
+        )
       text.value(
-        ng-attr-x="{{xscale(curves[currentPath].item[currentPoint].index)}}"
-        ng-attr-y="{{yscale(curves[currentPath].item[currentPoint].value) - 15}}"
+        ng-attr-x="{{getTextX(xscale)}}"
+        ng-attr-y="{{yscale(curves[currentPath].item[currentPoint].value) - 42 > 5 ? \
+          yscale(curves[currentPath].item[currentPoint].value) - 23 : \
+          yscale(curves[currentPath].item[currentPoint].value) + 35}}"
         text-anchor = "middle"
         ng-hide="angular.isUndefined(currentPoint)"
         ) {{+curves[currentPath].item[currentPoint].value.toFixed(2)}}
+
+    
 
   g(ng-attr-transform="translate({{viewport.width - viewport.paddingRight + 30}}, {{viewport.paddingTop + 15}})")
     text.user(
