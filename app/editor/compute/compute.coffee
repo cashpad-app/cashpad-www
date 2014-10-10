@@ -1,8 +1,17 @@
 angular
-  .module 'geekywallet.editor.compute', []
+  .module 'geekywallet.editor.filters', [
+    'geekywallet.editor.userFilter',
+    'geekywallet.editor.tagFilter'
+  ]
+
+
+
+angular
+  .module 'geekywallet.editor.compute', ['geekywallet.editor.filters']
   .controller 'ComputeCtrl', ($scope, $computedLines, $originalLines) ->
     $scope.computedLines = $computedLines
     $scope.originalLines = $originalLines
+    $scope.selectedUser = 'luca'
 
     # get people in the context 
     people = if $computedLines.length > 0
@@ -23,6 +32,7 @@ angular
           user: p
           value: new_val
           line: l.line
+          tags: if l.tags? then l.tags else []
         p_data.push line
       cumulativeLines.push p_data
     $scope.cumulativeLines = cumulativeLines

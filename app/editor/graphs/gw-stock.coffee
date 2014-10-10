@@ -1,7 +1,6 @@
 angular
   .module 'geekywallet.editor.graphs'
   .directive 'gwStock', ($timeout) ->
-
     scope:
       gwStock: '='
     templateUrl: 'editor/graphs/gw-stock.html'
@@ -75,9 +74,9 @@ angular
         else
           rectY + 19
 
-      scope.$watch 'gwStock', (gwStock) ->
+      gwStockWatch = (gwStock) ->
         palette = ['red', 'blue', 'green', 'gray', 'salmon', 'yellow', 'brown', 'purple']
-
+        console.log 'inside Watch'
         # group duplicates together
         toRemove = []
 
@@ -128,3 +127,5 @@ angular
           compute:
             color: (item) -> palette[item % palette.length]
           closed: true
+
+      scope.$watch 'gwStock', gwStockWatch, true
