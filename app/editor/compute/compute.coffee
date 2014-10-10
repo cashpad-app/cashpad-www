@@ -4,16 +4,14 @@ angular
     'geekywallet.editor.tagFilter'
   ]
 
-
-
 angular
   .module 'geekywallet.editor.compute', ['geekywallet.editor.filters']
-  .controller 'ComputeCtrl', ($scope, $computedLines, $originalLines) ->
+  .controller 'ComputeCtrl', ($scope, $computedLines, $originalLines, userFilter) ->
     $scope.computedLines = $computedLines
     $scope.originalLines = $originalLines
-    $scope.selectedUser = 'luca'
+    $scope.selectedUser = ''
 
-    # get people in the context 
+    # get people in the context
     people = if $computedLines.length > 0
     then $computedLines[0].context.people
     else []
@@ -36,3 +34,13 @@ angular
         p_data.push line
       cumulativeLines.push p_data
     $scope.cumulativeLines = cumulativeLines
+
+    filterWatch = ->
+      user: $scope.selectedUser
+
+    updateFilteredLines = (filters) ->
+      console.log 'updateFilteredLines', filters
+      lines = $scope.cumulativeLines
+      $scope.filteredLines = userFilter lines, filters.user
+
+    $scope.$watchCollection filterWatch, updateFilteredLines

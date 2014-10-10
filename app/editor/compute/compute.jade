@@ -1,2 +1,5 @@
 div
-  .stock(gw-stock="cumulativeLines | userFilter: selectedUser")
+  input(
+    ng-model="selectedUser")
+  div
+    .stock(gw-stock="filteredLines || []")

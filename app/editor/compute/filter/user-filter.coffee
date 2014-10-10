@@ -1,11 +1,12 @@
 angular
   .module 'geekywallet.editor.userFilter',[]
-  .filter 'userFilter', () ->
+  .filter 'user', () ->
     (data, user) ->
+      console.log 'userFilter', data, user
       # console.log 'inside userFilter'
       toReturn = []
       for path in data
-        if path[0].user == user
+        if path[0].user.match new RegExp '.*' + user + '.*'
           toReturn.push path
           # console.log path
           # console.log path

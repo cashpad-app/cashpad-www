@@ -37,13 +37,13 @@ angular
       scope.getRectTextX = (xscale) ->
         if !scope.currentPoint?
           return 0
-        
+
         pointX = xscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].index)
         valueLength = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length
-        
+
         if pointX - valueLength * 5.5 > 0 and pointX + valueLength * 5.5 < scope.stockCfg.$viewport.innerWidth
           pointX - valueLength * 5.5
-        else if pointX - valueLength * 5.5 <= 0 
+        else if pointX - valueLength * 5.5 <= 0
           3
         else
           scope.stockCfg.$viewport.innerWidth - valueLength * 11 - 3
@@ -76,7 +76,7 @@ angular
 
       gwStockWatch = (gwStock) ->
         palette = ['red', 'blue', 'green', 'gray', 'salmon', 'yellow', 'brown', 'purple']
-        console.log 'inside Watch'
+        console.log 'gwStockWatch', gwStock
         # group duplicates together
         toRemove = []
 

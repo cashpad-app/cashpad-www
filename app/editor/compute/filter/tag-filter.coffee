@@ -1,6 +1,6 @@
 angular
   .module 'geekywallet.editor.tagFilter',[]
-  .filter 'tagFilter', () ->
+  .filter 'tag', () ->
     (data, tag) ->
       # console.log 'inside userFilter'
       toReturn = []
