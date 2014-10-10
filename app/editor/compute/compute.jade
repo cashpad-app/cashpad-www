@@ -1,2 +1,8 @@
 div
-  .stock(gw-stock="cumulativeLines")
+  div
+    input(ng-model="filteredUsers", type="text", name="Users")
+    input(ng-model="filteredTags", type="text", name="Tags")
+    input(ng-model="filteredDate", type="text", name="Date")
+
+  div
+    .stock(gw-stock="filteredLines || []")

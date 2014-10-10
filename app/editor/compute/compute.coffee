@@ -1,10 +1,20 @@
 angular
-  .module 'geekywallet.editor.compute', []
-  .controller 'ComputeCtrl', ($scope, $computedLines, $originalLines) ->
+  .module 'geekywallet.editor.filters', [
+    'geekywallet.editor.userFilter',
+    'geekywallet.editor.dateFilter',
+    'geekywallet.editor.tagFilter'
+  ]
+
+angular
+  .module 'geekywallet.editor.compute', ['geekywallet.editor.filters']
+  .controller 'ComputeCtrl', ($scope, $computedLines, $originalLines, userFilter, tagFilter, dateFilter) ->
     $scope.computedLines = $computedLines
     $scope.originalLines = $originalLines
+    $scope.filteredUsers = ''
+    $scope.filteredTags = ''
+    $scope.filteredDate = ''
 
-    # get people in the context 
+    # get people in the context
     people = if $computedLines.length > 0
     then $computedLines[0].context.people
     else []
@@ -23,6 +33,20 @@ angular
           user: p
           value: new_val
           line: l.line
+          tags: l.tags
+          date: l.date
         p_data.push line
       cumulativeLines.push p_data
     $scope.cumulativeLines = cumulativeLines
+
+    filterWatch = ->
+      users: $scope.filteredUsers
+      tags: $scope.filteredTags
+      date: $scope.filteredDate
+
+    updateFilteredLines = (filters) ->
+      console.log 'updateFilteredLines', filters
+      lines = $scope.cumulativeLines
+      $scope.filteredLines = userFilter(dateFilter(tagFilter(lines, filters.tags), filters.date), filters.users)
+
+    $scope.$watchCollection filterWatch, updateFilteredLines
