@@ -15,6 +15,7 @@ angular
                 break
 
       scope.mouseMove = ($event) ->
+        # console.log scope.stockCfg.$viewport
         if $event.pageX < scope.stockCfg.padding
           scope.lineX = 0
         else if $event.pageX > scope.stockCfg.$viewport.width - scope.stockCfg.paddingRight
@@ -35,28 +36,28 @@ angular
         scope.mouseMove($event)
 
       scope.getRectTextX = (xscale) ->
-        if !scope.currentPoint?
-          return 0
+        if scope.currentPath? and scope.currentPoint?
+          pointX = xscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].index)
+          valueLength = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length
 
-        pointX = xscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].index)
-        valueLength = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length
-
-        if pointX - valueLength * 5.5 > 0 and pointX + valueLength * 5.5 < scope.stockCfg.$viewport.innerWidth
-          pointX - valueLength * 5.5
-        else if pointX - valueLength * 5.5 <= 0
-          3
+          if pointX - valueLength * 5.5 > 0 and pointX + valueLength * 5.5 < scope.stockCfg.$viewport.innerWidth
+            pointX - valueLength * 5.5
+          else if pointX - valueLength * 5.5 <= 0
+            3
+          else
+            scope.stockCfg.$viewport.innerWidth - valueLength * 11 - 3
         else
-          scope.stockCfg.$viewport.innerWidth - valueLength * 11 - 3
+          0
 
       scope.getRectTextY = (yscale) ->
-        if !scope.currentPath?
-          return 0
-
-        value = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value
-        if yscale(value) - 42 > 5
-          yscale(value) - 42
+        if scope.currentPath? and scope.currentPoint?
+          value = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value
+          if yscale(value) - 42 > 5
+            yscale(value) - 42
+          else
+            yscale(value) + 16
         else
-          yscale(value) + 16
+          0
 
       scope.getTextX = (xscale) ->
         if !scope.currentPoint?
@@ -77,6 +78,8 @@ angular
       gwStockWatch = (gwStock) ->
         palette = ['red', 'blue', 'green', 'gray', 'salmon', 'yellow', 'brown', 'purple']
         console.log 'gwStockWatch', gwStock
+        scope.currentPath = undefined
+        scope.currentPoint = undefined
         # group duplicates together
         toRemove = []
 
@@ -128,4 +131,4 @@ angular
             color: (item) -> palette[item % palette.length]
           closed: true
 
-      scope.$watch 'gwStock', gwStockWatch, true
+      scope.$watch 'gwStock', gwStockWatch
