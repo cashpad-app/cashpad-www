@@ -14,18 +14,22 @@ angular
                   scope.currentPoint = i
                 break
 
+      scope.graphState = {};
+
       scope.mouseMove = ($event) ->
-        # console.log scope.stockCfg.$viewport
+        return unless scope.graphState?.viewport?
+        viewport = scope.graphState.viewport
+
         if $event.pageX < scope.stockCfg.padding
           scope.lineX = 0
-        else if $event.pageX > scope.stockCfg.$viewport.width - scope.stockCfg.paddingRight
-          scope.lineX = scope.stockCfg.$viewport.width - scope.stockCfg.paddingRight - scope.stockCfg.padding
+        else if $event.pageX > viewport.width - scope.stockCfg.paddingRight
+          scope.lineX = viewport.width - scope.stockCfg.paddingRight - scope.stockCfg.padding
         else
           scope.lineX = $event.pageX - scope.stockCfg.padding
 
         if scope.currentPath?
           newCurrentPoint = Math.round(scope.lineX /
-                ((scope.stockCfg.$viewport.width - (scope.stockCfg.padding + scope.stockCfg.paddingRight)) /
+                ((viewport.width - (scope.stockCfg.padding + scope.stockCfg.paddingRight)) /
                   (scope.gwStock[0].length - 1)))
           if newCurrentPoint != scope.currentPoint
             scope.currentPoint = newCurrentPoint
@@ -36,16 +40,19 @@ angular
         scope.mouseMove($event)
 
       scope.getRectTextX = (xscale) ->
+        return unless scope.graphState?.viewport?
+        viewport = scope.graphState.viewport
+
         if scope.currentPath? and scope.currentPoint?
           pointX = xscale(scope.stockCfg.data[scope.currentPath][scope.currentPoint].index)
           valueLength = scope.stockCfg.data[scope.currentPath][scope.currentPoint].value.toFixed(2).toString().length
 
-          if pointX - valueLength * 5.5 > 0 and pointX + valueLength * 5.5 < scope.stockCfg.$viewport.innerWidth
+          if pointX - valueLength * 5.5 > 0 and pointX + valueLength * 5.5 < viewport.innerWidth
             pointX - valueLength * 5.5
           else if pointX - valueLength * 5.5 <= 0
             3
           else
-            scope.stockCfg.$viewport.innerWidth - valueLength * 11 - 3
+            viewport.innerWidth - valueLength * 11 - 3
         else
           0
 
