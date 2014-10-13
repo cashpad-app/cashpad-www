@@ -84,12 +84,11 @@ angular
 
       gwStockWatch = (gwStock) ->
         palette = ['red', 'blue', 'green', 'gray', 'salmon', 'yellow', 'brown', 'purple']
-        console.log 'gwStockWatch', gwStock
         scope.currentPath = undefined
         scope.currentPoint = undefined
+
         # group duplicates together
         toRemove = []
-
         for currentPath, i in gwStock
           if toRemove.indexOf(i) == -1
             for pathToMatch, j in gwStock[i+1..]
@@ -108,25 +107,26 @@ angular
           gwStock.splice(r - count, 1)
 
         # create array with Y value of each 'step'
-        scope.ySteps = []
-        values = []
-        for currentPath in gwStock
-          for item in currentPath
-            values.push item.value
+        if gwStock.length > 0
+          scope.ySteps = []
+          values = []
+          for currentPath in gwStock
+            for item in currentPath
+              values.push item.value        
+          
+          max = (acc, current) -> Math.max(acc,current)
+          min = (acc, current) -> Math.min(acc,current)
 
-        max = (acc, current) -> Math.max(acc,current)
-        min = (acc, current) -> Math.min(acc,current)
+          maxValue = values.reduce max, -Infinity
+          minValue = Math.abs values.reduce(min, Infinity)
 
-        maxValue = values.reduce max, -Infinity
-        minValue = Math.abs values.reduce(min, Infinity)
+          stepSize = Math.round(((maxValue + minValue) / 10))
 
-        stepSize = Math.round(((maxValue + minValue) / 10))
+          for i in [0..maxValue / stepSize]
+            scope.ySteps.push i * stepSize
 
-        for i in [0..maxValue / stepSize]
-          scope.ySteps.push i * stepSize
-
-        for i in [1..minValue / stepSize]
-          scope.ySteps.push i * -stepSize
+          for i in [1..minValue / stepSize]
+            scope.ySteps.push i * -stepSize
 
         scope.stockCfg =
           data: gwStock

@@ -29,6 +29,11 @@ module.exports = (grunt) ->
           cwd: 'app'
           dest: '.tmp/',
           src: ['**/*.js']
+        ,  
+          expand: true
+          cwd: 'bower_components/bootstrap/fonts'
+          dest: 'dist/fonts',
+          src: ['*']
         ]
       nomin:
         files: [
