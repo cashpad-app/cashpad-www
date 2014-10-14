@@ -1,2 +1,26 @@
-div
-  .stock(gw-stock="cumulativeLines")
+div  
+  form.form-inline(role="form")
+    div.form-group.people
+      label.control-label People
+      br
+      input.form-control(ng-model="filteredPeople", type="text", name="Users" placeholder="Filter by people")
+    
+    div.form-group.tags
+      label.control-label #Tags
+      br
+      input.form-control(ng-model="filteredTags", type="text", name="Tags" placeholder="Filter by tags")
+    
+    div.form-group.dates
+      label.control-label
+        | Date range
+        i.fa.fa-calendar(style="margin-left:5px")
+        i.fa.fa-arrows-h
+        i.fa.fa-calendar
+      br
+      input.form-control(type="text" ng-model="filteredFromDate" placeholder="From" 
+        autoclose = "{{true}}" dateFormat="{{'d MMMM yyyy'}}" bs-datepicker="")
+      input.form-control(type="text" ng-model="filteredUntilDate" data-min-date="{{filteredFromDate}}"
+       placeholder="Until" autoclose = "{{true}}" dateFormat="mediumDate" bs-datepicker="")
+
+  div
+    .stock(gw-stock="cumulativeLines || []")

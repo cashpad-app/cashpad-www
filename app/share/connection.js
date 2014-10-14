@@ -9,7 +9,7 @@ angular.module('geekywallet.connection', [
       sjsSocketWrapper.onmessage({data: data});
     }
 
-    var ws = new WebSocket('ws://10.0.0.135:9000');
+    var ws = new WebSocket('ws://10.0.0.146:9000');
     ws.onmessage = function(msg) {
       var json = JSON.parse(msg.data);
       switch (json.type) {
