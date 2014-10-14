@@ -1,9 +1,4 @@
-div
-  //- | {{dt}}
-  //- div(style="display:inline-block; min-height:290px;")
-  //-   datepicker.well.well-sm(ng-model="dt" show-weeks="false")
-
-  
+div  
   form.form-inline(role="form")
     div.form-group.people
       label.control-label People
@@ -27,22 +22,5 @@ div
       input.form-control(type="text" ng-model="filteredUntilDate" data-min-date="{{filteredFromDate}}"
        placeholder="Until" autoclose = "{{true}}" dateFormat="mediumDate" bs-datepicker="")
 
-    //- div.row
-    //-   div.col-md-6
-    //-     p.input-group
-    //-       input.form-control(datepicker-popup="dd-MMMM-yyyy" type="text" ng-model="filteredFromDate" placeholder="From"
-    //-         is-open="fromOpened" datepicker-options="dateOptions" show-button-bar="{{true}}")
-    //-       span.input-group-btn
-    //-         button.btn.btn-default(type="button", ng-click="openFrom($event)")
-    //-           i.glyphicon.glyphicon-calendar
-    //- div.row
-    //-   div.col-md-6
-    //-     p.input-group
-    //-       input.form-control(datepicker-popup="{{'shortDate'}}" type="text" ng-model="filteredUntilDate" placeholder="Until"
-    //-         is-open="untilOpened" datepicker-options="dateOptions" show-button-bar="{{true}}")
-    //-       span.input-group-btn
-    //-         button.btn.btn-default(type="button", ng-click="openUntil($event)")
-    //-           i.glyphicon.glyphicon-calendar
-      
   div
     .stock(gw-stock="cumulativeLines || []")

@@ -112,12 +112,12 @@ angular
           values = []
           for currentPath in gwStock
             for item in currentPath
-              values.push item.value        
+              values.push item.value
           
           max = (acc, current) -> Math.max(acc,current)
           min = (acc, current) -> Math.min(acc,current)
 
-          maxValue = values.reduce max, -Infinity
+          maxValue = Math.abs values.reduce(max, -Infinity)
           minValue = Math.abs values.reduce(min, Infinity)
 
           stepSize = Math.round(((maxValue + minValue) / 10))
