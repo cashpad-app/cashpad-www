@@ -43,12 +43,50 @@ angular
         catch e
           console.error e
 
+
+
+
     setupLiveCompute = (editor) ->
       $scope.$on 'computeLineChangedInGraph', (event, line) -> 
         if $state.is 'editor.compute'
           editor.clearSelection()
           editor.selection.moveCursorTo line - 1, 0, true
 
+      $scope.$on 'computeCumulativeLinesChanged', (event, lines, firstLine, lastLine) -> 
+        if $state.is 'editor.compute'
+          Range=require("ace/range").Range;
+
+          filteredLines = []
+          for line in lines
+            filteredLines.push line.line
+
+          foldedLines = []
+          for i in [firstLine..lastLine]
+            if i not in filteredLines
+              foldedLines.push i
+            else
+              editor.getSession().unfold i - 1, true
+
+          start = 0
+          for fl, index in foldedLines
+            if index != 0 and fl != foldedLines[index - 1] + 1
+              range = new Range(foldedLines[start] - 1, 0, foldedLines[index - 1], 0)
+              editor.session.addFold("", range)
+              start = index
+              
+            if index == foldedLines.length - 1
+              range = new Range(foldedLines[start] - 1, 0, fl, 0)
+              editor.session.addFold("", range)
+
+    setupOnStateChange = (editor) ->
+      $scope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+        if toState.name == 'editor'
+          editor.setReadOnly false
+        else if toState.name == 'editor.compute'
+          editor.setReadOnly true
+
+    $scope.isStateCompute = () ->
+      $state.is 'editor.compute'
 
     aceWasLoaded = false
     $scope.aceLoaded = (editor) ->
@@ -61,6 +99,7 @@ angular
       setupConnection editor
       setupLiveWallet editor
       setupLiveCompute editor
+      setupOnStateChange editor
 
     $scope.aceCfg =
       onLoad: $scope.aceLoaded

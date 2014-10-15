@@ -1,4 +1,5 @@
 .wrapper
-  a(ui-sref="editor.compute") compute
+  a(ui-sref="editor.compute") COMPUTE
+  div.overlay(ng-show="isStateCompute()")
   .editor.grow(ui-ace="aceCfg")
-  .bottom(ui-view="")
+  .bottom(ui-view="" ng-show="isStateCompute()")

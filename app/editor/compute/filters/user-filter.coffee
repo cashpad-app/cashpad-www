@@ -4,8 +4,6 @@ angular
     (lines, user) ->
       if user? and user.length > 0
         users = user.split ' '
-        console.log 'users', users
-
         toReturn = []
         for line in lines
           for u in users
@@ -25,3 +23,4 @@ angular
         toReturn
       else
         lines
+

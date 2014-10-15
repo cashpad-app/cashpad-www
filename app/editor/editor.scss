@@ -1,6 +1,7 @@
 @import 'sass-flex-mixins/dist/sass-flex-mixins';
 
 .wrapper {
+
   height: 100%;
   width: 100%;
   margin: 0;
@@ -12,8 +13,41 @@
     margin: 0;
     padding: 0;
   }
-  .bottom{
-    height: 328px;
-    width: 100%;
+
+  .editor {
+    cursor: pointer !important;
+    z-index: 0;
+    pointer-events: auto;
+
   }
+
+  .bottom{
+    padding: 5px;
+    bottom: 30px;
+    background-color: white;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: 370px;
+    width: 100%;
+    z-index: 0;
+  }
+}
+
+div{
+  &.overlay{
+    position: absolute;
+    left: 0;
+    background: rgba(0,0,0,.0);
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+a {
+  position: absolute;
+  left: 0;
+  font-size: 20;
+  z-index: 2;
 }

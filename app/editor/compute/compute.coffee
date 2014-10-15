@@ -16,7 +16,18 @@ angular
     then $computedLines[0].context.people
     else []
 
-
+    getFoldedLine = (lineNumbersAfterFiltering, originalLineNumber) ->
+      console.log lineNumbersAfterFolding
+      if originalLineNumber in lineNumbersAfterFolding
+        return originalLineNumber
+      else
+        counter = -1
+        for foldedLineNumber in lineNumbersAfterFolding
+          if foldedLineNumber > originalLineNumber
+            counter++;
+            break
+          counter++
+        lineNumbersAfterFolding[counter] + 1
 
     updateCumulativeLines = (filteredLines) ->
       if filteredLines.length > 0
@@ -47,11 +58,16 @@ angular
               line: l.line
               tags: l.tags
               date: l.date
+              getFoldedLine: () => getFoldedLine(filteredLines.map((x) => x.line),
+                                                line.line)
+
             p_data.push line
           cumulativeLines.push p_data
         $scope.cumulativeLines = cumulativeLines
       else
         $scope.cumulativeLines = []
+
+      $scope.$emit 'computeCumulativeLinesChanged', filteredLines, $scope.computedLines[0].line, $scope.computedLines[$scope.computedLines.length - 1].line
 
     filterWatch = ->
       people: $scope.filteredPeople
@@ -64,7 +80,7 @@ angular
       lines = $scope.computedLines
       tags = tagFilter(lines, filters.tags)
       date = datesFilter(tags, filters.fromDate, filters.untilDate)
-      users = userFilter(date, filters.users)
+      users = userFilter(date, filters.people)
       filteredLines = users
       updateCumulativeLines filteredLines
 

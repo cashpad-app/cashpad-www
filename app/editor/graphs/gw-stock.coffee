@@ -33,7 +33,12 @@ angular
                   (scope.gwStock[0].length - 1)))
           if newCurrentPoint != scope.currentPoint
             scope.currentPoint = newCurrentPoint
+
+            lineNumbersAfterFolding = []
+            
+
             scope.$emit 'computeLineChangedInGraph', scope.stockCfg.data[scope.currentPath][scope.currentPoint].line
+            console.log scope.stockCfg.data[scope.currentPath][scope.currentPoint].getFoldedLine()
 
       scope.selectPath = ($event, $index) ->
         scope.currentPath = $index
